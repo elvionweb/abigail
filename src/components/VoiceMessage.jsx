@@ -11,7 +11,8 @@ function VoiceMessage() {
   const [toast, setToast] = useState("");
   const particles = useMemo(() => Array.from({ length: 12 }, (_, i) => i), []);
 
-  useEffect(() => {
+  const createSound = () => {
+    if (howlRef.current) return howlRef.current;
     const sound = new Howl({
       src: ["/voice/vna.ogg"],
       format: ["ogg"],
@@ -24,10 +25,17 @@ function VoiceMessage() {
       },
     });
     howlRef.current = sound;
+    return sound;
+  };
+
+  useEffect(() => {
     return () => {
       clearInterval(timerRef.current);
-      sound.stop();
-      sound.unload();
+      if (howlRef.current) {
+        howlRef.current.stop();
+        howlRef.current.unload();
+        howlRef.current = null;
+      }
     };
   }, []);
 
@@ -41,12 +49,12 @@ function VoiceMessage() {
   }, [playing]);
 
   const toggle = () => {
-    if (!howlRef.current) return;
+    const sound = createSound();
     if (playing) {
-      howlRef.current.pause();
+      sound.pause();
       setPlaying(false);
     } else {
-      howlRef.current.play();
+      sound.play();
       setPlaying(true);
     }
   };
@@ -58,6 +66,9 @@ function VoiceMessage() {
     setTime(0);
   };
   const seekTo = (value) => {
+    if (!howlRef.current) {
+      createSound();
+    }
     if (!howlRef.current) return;
     howlRef.current.seek(value);
     setTime(value);

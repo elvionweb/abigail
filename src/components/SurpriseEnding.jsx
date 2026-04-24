@@ -93,8 +93,8 @@ function SurpriseEnding() {
       <img src="/photos/ank16.jpeg" alt="surprise" className="absolute inset-0 h-full w-full object-cover" />
       <div className="absolute inset-0 bg-black/75" />
       <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 z-20" />
-      <div className="relative z-30 text-center">
-        <motion.h2 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="font-playfair text-4xl text-gold md:text-6xl" style={{ textShadow: "0 0 18px rgba(212,175,55,0.5)" }}>
+      <div className="relative z-30 text-center w-full max-w-4xl mx-auto px-2">
+        <motion.h2 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="font-playfair text-2xl text-gold sm:text-4xl md:text-6xl leading-snug" style={{ textShadow: "0 0 18px rgba(212,175,55,0.5)" }}>
           Wait… I have one more surprise for you, {SITE_CONFIG.herName}. 🎁
         </motion.h2>
         {showButton && !opened && (
@@ -102,15 +102,15 @@ function SurpriseEnding() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             onClick={handleOpenSurprise}
-            className="mt-10 animate-glowPulse rounded-full bg-gradient-to-r from-rosegold to-coral px-10 py-4 text-xl text-white"
+            className="mt-6 sm:mt-10 animate-glowPulse rounded-full bg-gradient-to-r from-rosegold to-coral px-6 sm:px-10 py-3 sm:py-4 text-base sm:text-xl text-white"
           >
             Open Your Surprise 💝
           </motion.button>
         )}
         {opened && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-10">
-            <div className="mb-4 flex justify-center gap-2">{Array.from({ length: 30 }).map((_, i) => <motion.span key={i} initial={{ x: 0, y: 0, opacity: 1 }} animate={{ x: (i - 15) * 10, y: -80 + (i % 6) * 16, opacity: 0 }} transition={{ duration: 1.3, delay: i * 0.02 }} className="text-xl">❤</motion.span>)}</div>
-            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mx-auto max-w-3xl whitespace-pre-line font-playfair text-2xl text-white md:text-4xl">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-8 sm:mt-10">
+            <div className="mb-4 sm:mb-6 flex flex-wrap justify-center gap-1 sm:gap-2">{Array.from({ length: 30 }).map((_, i) => <motion.span key={i} initial={{ x: 0, y: 0, opacity: 1 }} animate={{ x: (i - 15) * 5, y: -60 + (i % 6) * 12, opacity: 0 }} transition={{ duration: 1.3, delay: i * 0.02 }} className="text-lg sm:text-xl md:text-2xl">❤</motion.span>)}</div>
+            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mx-auto max-w-3xl whitespace-pre-line font-playfair text-lg text-white sm:text-xl md:text-3xl leading-relaxed">
               {SITE_CONFIG.surpriseMessage}
             </motion.p>
             {SITE_CONFIG.giftLink && SITE_CONFIG.giftLink !== "#" && (
