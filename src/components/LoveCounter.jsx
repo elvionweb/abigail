@@ -62,7 +62,7 @@ function LoveCounter() {
     tick();
     return () => clearTimeout(timeoutId);
   }, []);
-  const cards = [
+  let cards = [
     ["Years", diff.years],
     ["Months", diff.months],
     ["Days", diff.days],
@@ -71,9 +71,17 @@ function LoveCounter() {
     ["Seconds", diff.seconds],
   ];
 
+  if (diff.years === 0) {
+    cards = cards.filter(([label]) => label !== "Years");
+    if (diff.months === 0) {
+      cards = cards.filter(([label]) => label !== "Months");
+    }
+  }
+
   return (
     <motion.section initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="px-4 py-24">
       <h2 className="text-center font-playfair text-4xl text-gold md:text-5xl">Every Second With You Counts ⏳</h2>
+      <p className="mt-4 text-center tracking-[0.1em] font-body text-offwhite/70">Since {SITE_CONFIG.relationshipStartDate}</p>
       <div className="mx-auto mt-10 flex max-w-6xl flex-wrap justify-center gap-4">
         {cards.map(([label, value]) => (
           <div key={label} className="w-[150px] rounded-xl border border-rosegold bg-romantic-card p-4 text-center shadow-[0_0_20px_rgba(201,112,106,0.25)]">
